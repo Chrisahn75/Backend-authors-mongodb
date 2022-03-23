@@ -35,6 +35,18 @@ app.get("/authors", async (_req, res) => {
 	res.json(author);
 });
 
+app.get("/authors/:id", async (req, res) => {
+	const author = await authors.findById(req.params.id).select("name").select("nationality");
+	res.json(author);
+});
+
+app.get("/authors/:id/books", async (req, res) => {
+	const author = await authors.findById(req.params.id).select("books");
+	res.json(author);
+});
+
+
+
 app.use("*", (err, req, res, next) => {
 	res.send("error");
 });
